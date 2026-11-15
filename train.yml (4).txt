@@ -1,0 +1,27 @@
+name: Train Fake News AI Model
+
+on:
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Libraries
+        run: pip install -r requirements.txt
+
+      - name: Train AI Model
+        run: python train_model.py
+
+      - name: Save Model
+        uses: actions/upload-artifact@v4
+        with:
+          name: fake-news-model
+          path: model/
